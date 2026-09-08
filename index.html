@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Browser Verification</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding-top: 20%; }
+    </style>
+</head>
+<body>
+    <h3>Verifying your browser...</h3>
+    <p>Please wait a moment while we check your connection.</p>
+
+    <script>
+        // 1. The Challenge (Typically injected dynamically by your backend server)
+        // A bot without a JS engine cannot perform this calculation.
+        const challengeSeed = 98452;
+        const salt = 12;
+
+        // 2. The Computation (The "Proof of Work")
+        // This is a simple math operation, but could be a SHA-256 hash using Web Crypto API.
+        const verificationToken = (challengeSeed * salt).toString(16);
+
+        // 3. Set the Verification Cookie
+        // The server will look for this exact cookie on the next HTTP request.
+        document.cookie = `__js_verified=${verificationToken}; max-age=3600; path=/; SameSite=Strict`;
+
+        // 4. Redirect to the destination
+        setTimeout(() => {
+            // Replace with your actual destination URL or use window.location.reload()
+            window.location.href = "/dashboard"; 
+        }, 1500); // Brief 1.5s delay to allow the user to see the loading message
+    </script>
+
+    <noscript>
+        <div style="color: red;">
+            This site requires JavaScript to function. Please enable JavaScript in your browser settings.
+        </div>
+    </noscript>
+</body>
+</html>
